@@ -8,7 +8,7 @@ from Seglink import GetSeglinkLabel
 from SeglinkToBbox import seglink2bbox
 from VGG_Preprocessing import Random_Crop_Flip,Random_Disort_Color,vgg_pre
 
-tfrecord_file = 'C:\Code\GraduateThesis\SegLink - Final\CreateGT\DatasetInTFRecord\SynthText\SynthText_11.tfrecords'
+tfrecord_file = 'C:\Code\GraduateThesis\SegLink - Final\CreateGT\DatasetInTFRecord\ICDAR2015\ICDAR2015_train.tfrecords'
 raw_dataset = tf.data.TFRecordDataset(tfrecord_file)
 
 feature_description = { # 定义Feature结构，告诉解码器每个Feature的类型是什么
@@ -66,7 +66,7 @@ print(label)
 ShowBBox(image, bbox_vgg)
 
 image = tf.expand_dims(image, 0)
-SLNetModel = SeglinkNet.SegLinkNet()
+SLNetModel = SeglinkNet.SegLinkNet(Pretrain = './SegLink_iteration140000.h5')
 SLNetModel((512,512))#build
 
 Endpoint = SLNetModel.GetEndPoint(image)
